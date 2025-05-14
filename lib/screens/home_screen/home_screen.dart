@@ -65,7 +65,8 @@ class HomeScreen extends GetView<HomePageController> {
             Center(
               child: InkWell(
                 onTap: () async {
-                  controller.openQRCode(context);
+                  if (controller.loadingState.value == LoadingState.idle)
+                    controller.openQRCode(context);
                 },
                 child: Image.asset(
                   AssetsManager.qrIcon,
