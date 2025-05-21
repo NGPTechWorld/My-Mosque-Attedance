@@ -41,11 +41,14 @@ class HomePageController extends GetxController {
     final response = await userRepo.attedance(id: id);
 
     if (response.success) {
-      SnackBarCustom.show(context, "تم تسجيل الحضور", ColorManager.greenColor);
-    } else if (response.networkFailure!.code == 302) {
-      SnackBarCustom.show(context, "تم تسجيل الحضور", ColorManager.greenColor);
+      final data = response.data as AttedanceEntitie;
+      SnackBarCustom.show(context, data.message, ColorManager.greenColor);
     } else {
-      SnackBarCustom.show(context, "هناك خطأ ما", ColorManager.redColor);
+      SnackBarCustom.show(
+        context,
+        response.networkFailure!.message,
+        ColorManager.redColor,
+      );
     }
     loadingState.value = LoadingState.idle;
   }

@@ -22,13 +22,10 @@ class ImpUsersRepositories implements UsersRepositories {
     AppResponse response = AppResponse(success: false);
     try {
       response.data = await api.request(
-        url: EndPoints.baserUrl,
+        url: EndPoints.baserUrl + EndPoints.attendance,
         method: Method.post,
         requiredToken: false,
-        params: {
-          ApiKey.id: id,
-          ApiKey.date: DateTime.now().toIso8601String().split('T')[0],
-        },
+        params: {ApiKey.id: id, ApiKey.attended_at: DateTime.now().toIso8601String()},
       );
       debugPrint(response.data.toString());
       final data = jsonDecode(response.data.toString()) as Map<String, dynamic>;
